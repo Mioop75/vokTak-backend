@@ -57,7 +57,7 @@ export class PhotosController {
   @UseGuards(AuthGuard)
   @HttpCode(200)
   @Get(':id')
-  async getPhoto(@Param('id') id: number) {
+  async getPhoto(@Param('id', ParseIntPipe) id: number) {
     const photo = await this.photosService.getPhoto(id);
 
     return plainToInstance(PhotoDto, photo);
@@ -116,7 +116,7 @@ export class PhotosController {
   @UseGuards(AuthGuard)
   @HttpCode(200)
   @Patch('hide/:id')
-  async hidePhoto(@Param('id') id: number) {
+  async hidePhoto(@Param('id', ParseIntPipe) id: number) {
     return await this.photosService.hidePhoto(id);
   }
 
@@ -128,7 +128,7 @@ export class PhotosController {
   @UseGuards(AuthGuard)
   @HttpCode(200)
   @Patch('unhide/:id')
-  async unhidePhoto(@Param('id') id: number) {
+  async unhidePhoto(@Param('id', ParseIntPipe) id: number) {
     return await this.photosService.unhidePhoto(id);
   }
 }

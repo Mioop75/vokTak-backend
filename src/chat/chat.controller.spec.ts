@@ -1,20 +1,21 @@
 import { PrismaService } from '../prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ChatGateway } from './chat.gateway';
+import { ChatController } from './chat.controller';
 import { ChatService } from './chat.service';
 
-describe('ChatGateway', () => {
-  let gateway: ChatGateway;
+describe('ChatController', () => {
+  let controller: ChatController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ChatGateway, ChatService, PrismaService],
+      controllers: [ChatController],
+      providers: [ChatService, PrismaService],
     }).compile();
 
-    gateway = module.get<ChatGateway>(ChatGateway);
+    controller = module.get<ChatController>(ChatController);
   });
 
   it('should be defined', () => {
-    expect(gateway).toBeDefined();
+    expect(controller).toBeDefined();
   });
 });

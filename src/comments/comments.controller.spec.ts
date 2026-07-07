@@ -1,3 +1,4 @@
+import { PrismaService } from '../prisma.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommentsController } from './comments.controller';
 import { CommentsService } from './comments.service';
@@ -8,7 +9,7 @@ describe('CommentsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CommentsController],
-      providers: [CommentsService],
+      providers: [CommentsService, PrismaService],
     }).compile();
 
     controller = module.get<CommentsController>(CommentsController);

@@ -1,6 +1,4 @@
-import { commentSchemaApi } from '../comments/comment.schema';
 import { photoSchemaApi } from '../photos/photo.schema';
-import { postSchemaApi } from '../posts/post.schema';
 import { UserDto } from './dto/user.dto';
 
 export const userSchemaApi: UserDto = {
@@ -11,9 +9,9 @@ export const userSchemaApi: UserDto = {
   firstname: 'Nick',
   lastname: 'Smith',
   language: 'rus',
-  posts: [postSchemaApi],
+  posts: [],
   photos: [photoSchemaApi],
-  comments: [commentSchemaApi],
+  comments: [],
   likes: [],
   friends: [],
 };

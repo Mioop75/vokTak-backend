@@ -1,9 +1,8 @@
-import { CacheModule, CacheStore } from '@nestjs/cache-manager';
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { redisStore } from 'cache-manager-redis-store';
 import { join } from 'path';
 import config from 'src/config/config';
 import { AuthModule } from './auth/auth.module';
@@ -23,23 +22,16 @@ import { VideosModule } from './videos/videos.module';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [config],
-      envFilePath: './apps/main/.env',
+      envFilePath: '.env',
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
       exclude: ['/api*'],
     }),
-    CacheModule.registerAsync({
+    CacheModule.register({
       isGlobal: true,
-      useFactory: async (config: ConfigService) => ({
-        store: (await redisStore({
-          ttl: config.get('CACHE_TTL'),
-          // Later back in normal state
-          // url: config.get('REDIS_URL'),
-        })) as unknown as CacheStore,
-      }),
-      inject: [ConfigService],
+      ttl: 2000,
     }),
     UsersModule,
     RolesModule,

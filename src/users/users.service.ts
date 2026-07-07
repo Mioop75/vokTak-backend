@@ -133,8 +133,8 @@ export class UsersService {
     const currentUser = await this.prisma.user.findFirst({ where: { uuid } });
 
     const verifiedPassword = await compare(
-      currentUser.password,
       dto.oldPassword,
+      currentUser.password,
     );
 
     if (!verifiedPassword) throw new UnauthorizedException('Wrong password');

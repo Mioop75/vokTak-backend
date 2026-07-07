@@ -5,7 +5,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Server } from 'http';
+import { Server } from 'socket.io';
 import { InputMessageDto } from './dtos/input-message.dto';
 
 @WebSocketGateway(4050, {
@@ -24,7 +24,7 @@ export class ChatGateway {
   @SubscribeMessage('get_messages')
   async getMessages(@MessageBody() data: any) {
     const messages = await this.prisma.message.findMany({
-      where: { id: data.chat_id },
+      where: { chat_id: data.chat_id },
       include: {
         user: {
           include: {
